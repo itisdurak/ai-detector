@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ИИ-детектор текста — проверка на машинный стиль</title>
+  <meta name="description" content="Простой локальный детектор ИИ-текста: 6 признаков стиля, оценка в процентах и разметка подозрительных фраз." />
+  <meta name="theme-color" content="#07090d" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%237c9cff'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-family='Segoe UI,sans-serif' font-size='28' font-weight='700' fill='%2307090d'%3EAI%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="brand">
+      <span class="brand-mark">AI</span>
+      <span class="brand-text">
+        <strong>ИИ-детектор</strong>
+        <small>насколько текст похож на машинный</small>
+      </span>
+    </div>
+    <span class="badge">работает локально · без API</span>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Проверьте текст на&nbsp;следы ИИ</h1>
+      <p>
+        Вставьте фрагмент — детектор посчитает шесть признаков стиля
+        и покажет, какие места выглядят «слишком гладко».
+      </p>
+    </section>
+
+    <section class="card editor">
+      <div class="editor-head">
+        <span class="label">Текст для проверки</span>
+        <div class="counters">
+          <b id="wordCount">0</b> слов ·
+          <b id="charCount">0</b> симв. ·
+          ~<b id="readTime">0</b> мин чтения
+        </div>
+      </div>
+
+      <textarea id="text" spellcheck="false" autocomplete="off"
+        placeholder="Вставьте сюда текст (минимум 8 слов). Например, абзац из статьи, письма или ответа нейросети…"></textarea>
+
+      <div class="editor-foot">
+        <div class="samples">
+          <button type="button" class="chip" data-sample="ai">Пример ИИ</button>
+          <button type="button" class="chip" data-sample="human">Пример человека</button>
+          <button type="button" class="chip" id="clearBtn">Очистить</button>
+        </div>
+        <button type="button" class="btn-primary" id="analyzeBtn">
+          <span class="btn-label">Проверить</span>
+        </button>
+      </div>
+
+      <p class="kbd-hint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> — запустить анализ</p>
+    </section>
+
+    <section id="result" class="result" hidden></section>
+
+    <section id="historyBlock" class="card history" hidden>
+      <div class="history-head">
+        <h3>История проверок</h3>
+        <button type="button" class="link" id="clearHistory">очистить</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </section>
+
+    <section class="how">
+      <article class="how-item">
+        <span class="num">01</span>
+        <h3>Что считается</h3>
+        <p>Шаблонные обороты, связки в начале фраз, разговорные маркеры, ритм, длина фраз и слов.</p>
+      </article>
+      <article class="how-item">
+        <span class="num">02</span>
+        <h3>Как читать шкалу</h3>
+        <p>До 30% — живой текст, 30–55% — неоднозначно, выше 75% — сильные признаки генерации.</p>
+      </article>
+      <article class="how-item">
+        <span class="num">03</span>
+        <h3>Чего это не делает</h3>
+        <p>Не сравнивает с базой нейросетей. Это статистика стиля, а не доказательство авторства.</p>
+      </article>
+    </section>
+
+    <p class="disclaimer">
+      Оценка эвристическая: она опирается на стиль, а не на «отпечаток» модели.
+      Отредактированный машинный текст и строгий формальный текст человека выглядят похоже.
+      Используйте результат как подсказку, а не как приговор.
+    </p>
+  </main>
+
+  <script src="detector.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
